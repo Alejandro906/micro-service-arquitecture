@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  api-gateway:
+    build: ./gateway
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URL=mongodb+srv://admin1:admin1@cluster0.gil6b.mongodb.net/mascotas?retryWrites=true&w=majority&appName=Cluster0
+      - JWT_SECRET=your_jwt_secret
+    depends_on:
+      - product-service
+      - category-service
+      - user-service
+
+  product-service:
+    build: ./services/product
+    environment:
+      - MONGO_URL=mongodb+srv://admin1:admin1@cluster0.gil6b.mongodb.net/mascotas?retryWrites=true&w=majority&appName=Cluster0
+      - JWT_SECRET=your_jwt_secret
+
+  category-service:
+    build: ./services/category
+    environment:
+      - MONGO_URL=mongodb+srv://admin1:admin1@cluster0.gil6b.mongodb.net/mascotas?retryWrites=true&w=majority&appName=Cluster0
+      - JWT_SECRET=your_jwt_secret
+
+  user-service:
+    build: ./services/user
+    environment:
+      - MONGO_URL=mongodb+srv://admin1:admin1@cluster0.gil6b.mongodb.net/mascotas?retryWrites=true&w=majority&appName=Cluster0
+      - JWT_SECRET=your_jwt_secret
